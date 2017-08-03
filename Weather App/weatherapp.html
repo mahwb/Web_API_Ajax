@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather App</title>
+    <script type="text/javascript" src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("click", "input", function () {
+                $("input[name=city]").attr("value", "");
+            });
+            $("form").submit(function () {
+                var city = $("input[name=city]").val();
+                $.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&&appid=d32ab70bd6af6240f76ee85c8384083b", function (data) {
+                    //temp is in kelvin
+                    var temp = Math.round((data.main["temp"] * 1.8 - 459.67) * 100) / 100;
+                    var str = data.name + " Temperature: " + temp + "&#176;F";
+                    $("p").html(str);
+                }, "json")
+                .fail(function(){
+                    $("p").html("No page loaded.");
+                })
+                return false;
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <form>
+        <input type="text" name="city" value="Enter City">
+        <input type="submit" value="Search Weather">
+    </form>
+    <p></p>
+</body>
+
+</html>

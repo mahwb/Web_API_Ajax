@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            for (i = 1; i <= 151; i++) {
+                $("main").append("<img id='" + i + "' src='http://pokeapi.co/media/img/" + i + ".png'>");
+            }
+            $(document).on("mouseover", "img", function () {
+                var poke_id = $(this).attr("id")
+                $.get("http://pokeapi.co/api/v1/pokemon/" + poke_id + "/", function (data) {
+                    var str = "";
+                    str += "<h1>" + data.name + "<h1>";
+                    str += "<img id='" + poke_id + "' src='http://pokeapi.co/media/img/" + poke_id + ".png'>"
+                    str += "<h4>Types</h4>";
+                    str += "<ul>";
+                    for (var i = 0; i < data.types.length; i++) {
+                        str += "<li>" + data.types[i].name + "</li>";
+                    }
+                    str += "</ul>";
+                    str += "<h4>Height</h4>";
+                    str += "<p>" + data.height + "</p>";
+                    str += "<h4>Weight</h4>";
+                    str += "<p>" + data.weight + "</p>";
+                    $("aside").html(str);
+                }, "json");
+            })
+        })
+    </script>
+    <title>Pokemon</title>
+    <style>
+        main {
+            width: 75%;
+            display: inline-block;
+        }
+
+        aside {
+            width: 20%;
+            display: inline-block;
+            vertical-align: top;
+            position: fixed;
+        }
+    </style>
+</head>
+
+<body>
+    <main></main>
+    <aside></aside>
+</body>
+
+</html>

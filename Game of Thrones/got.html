@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("img").click(function () {
+                var api = "";
+                if ($(this).attr("alt")=="baratheon") {
+                    api += "https://www.anapioficeandfire.com/api/houses/17"
+                }
+                 if ($(this).attr("alt")=="targaryen") {
+                    api += "https://www.anapioficeandfire.com/api/houses/378"
+                }
+                 if ($(this).attr("alt")=="stark") {
+                    api += "https://www.anapioficeandfire.com/api/houses/362"
+                }
+                 if ($(this).attr("alt")=="lannister") {
+                    api += "https://www.anapioficeandfire.com/api/houses/229"
+                }
+                $.get(api, function (data) {
+                    var html_str = "<div><h2>House Details</h2><p id='name'></p><p id='words'></p><p id='titles'></p></div>";
+                    $("main").html(html_str);
+                    $("#name").html("Name: " + data.name);
+                    $("#words").html("Words: " + data.words);
+                    $("#titles").html("Titles: " + data.titles);
+                }, "json");
+            })
+        })
+    </script>
+    <title>Game of Thrones</title>
+    <style>
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        img {
+            display: inline-block;
+            width: 20%;
+        }
+
+        div {
+            border: 1px solid black;
+            padding: 10px;
+            width: 50%;
+            margin: 0px auto;
+            position: relative;
+        }
+
+        h2 {
+            position: absolute;
+            top: -15px;
+            width: 160px;
+            background-color: white;
+            margin: 0;
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="./img/baratheon.png" alt="baratheon">
+        <img src="./img/lannister.jpg" alt="lannister">
+        <img src="./img/stark.jpg" alt="stark">
+        <img src="./img/targaryen.jpg" alt="targaryen">
+    </header>
+    <main>
+    </main>
+</body>
+
+</html>
